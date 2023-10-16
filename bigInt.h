@@ -157,7 +157,7 @@ template <size_t Maxlen = 1000 + 3, class T1 = int> struct BigInt {
       r %= b;
     }
     return r;
-  }   
+  }
 };
 
 template <size_t len> void Input(BigInt<len> &a) {
