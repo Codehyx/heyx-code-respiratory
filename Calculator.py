@@ -1,4 +1,4 @@
-import tkinter #导入tkinter模块
+import tkinter
 
 root  = tkinter.Tk()
 root.minsize(280,500)
