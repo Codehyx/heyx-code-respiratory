@@ -32,27 +32,27 @@ int cal_factorial(int theInt);
 int cal_factorial_number(string &theStr);
 
 int main() {
-  cout << "Welcome to the calculator" << endl;
-  cout << "You can use this calculator to do some simple calculations" << endl;
-  cout << "If you want to exit, type :exit..." << endl;
-  while (true) {
+  cout << "Welcome to the calculator\n";
+  cout << "You can use this calculator to do some simple calculations\n";
+  cout << "If you want to exit, type :exit...\n";
+  while (1) {
     string init_exp;
     cout << "-- Please enter the expression:";
     cin >> init_exp;
     if (init_exp == string("exit")) {
-      cout << "Thank you for your use..." << endl;
+      cout << "Thank you for your use...\n";
       break;
     } else if (Judge_rectangle(init_exp) != 0) {
       double res = 0;
       res = cal_rect_number(init_exp, Judge_rectangle(init_exp));
       if (res)
-        cout << "The result is:" << fixed << setprecision(9) << res << endl;
+        cout << "The result is:" << fixed << setprecision(9) << res << '\n';
     } else if (Judge_factorial(init_exp)) {
       int n = cal_factorial_number(init_exp);
       cout << "The result is:";
       for (int i = cal_factorial(n); i > 0; i--)
         cout << LargeNumberFactorial[i];
-      cout << endl;
+      cout << '\n';
     } else {
       cin.clear();
       cin.sync();
@@ -68,7 +68,7 @@ int main() {
       change(init_exp, cng_exp);
       compute(cng_exp);
       double stdans = val.top();
-      cout << "The result is:" << (double)stdans << endl;
+      cout << "The result is:" << (double)stdans << '\n';
     }
   }
   return 0;
@@ -92,9 +92,9 @@ int level(char theOpt) {
 bool in_set(char theChar) {
   for (int i = 0; i < 8; i++) {
     if (theChar == opt_set[i])
-      return true;
+      return 1;
   }
-  return false;
+  return 0;
 }
 
 bool del_space(string &theString) {
@@ -104,20 +104,20 @@ bool del_space(string &theString) {
       res += theString[i];
     else if (theString[i] == ' ') {
     } else {
-      cout << "The enter is Wrong" << endl;
-      return false;
+      cout << "The enter is Wrong" << '\n';
+      return 0;
     }
   }
   theString = res;
-  return true;
+  return 1;
 }
 
 string to_string(int theInt) {
   if (theInt == 0)
     return string("0");
-  bool neg = false;
+  bool neg = 0;
   if (theInt < 0) {
-    neg = true;
+    neg = 1;
     theInt = -theInt;
   }
   string res;
@@ -165,7 +165,7 @@ bool change(string &from, string &to) {
         }
         opt.pop();
       } else {
-        while (true) {
+        while (1) {
           if (opt.empty() || opt.top() == '(')
             opt.push(c);
           else if (level(c) > level(opt.top()))
@@ -187,14 +187,14 @@ bool change(string &from, string &to) {
     to += ' ';
     opt.pop();
   }
-  return true;
+  return 1;
 }
 
 bool compute(string &theExp) {
   int theInt = 0;
   int state = OUT;
   char c;
-  bool dot = false;
+  bool dot = 0;
   double count = 1.0;
   for (int i = 0; i < theExp.length(); i++) {
     c = theExp[i];
@@ -203,15 +203,15 @@ bool compute(string &theExp) {
         theInt *= 10;
         theInt += c - '0';
         state = IN;
-        if (dot == true)
+        if (dot == 1)
           count *= 10.0;
       }
       if (c == '.') {
-        dot = true;
+        dot = 1;
         continue;
       }
     } else {
-      dot = false;
+      dot = 0;
       double ans = theInt / count;
       count = 1.0;
       if (state == IN) {
@@ -239,13 +239,13 @@ bool compute(string &theExp) {
           val.push(y / x);
           break;
         default:
-          cout << "Unknown Error!" << endl;
+          cout << "Unknown Error!" << '\n';
         }
       }
       state = OUT;
     }
   }
-  return true;
+  return 1;
 }
 
 int Judge_rectangle(string &theStr) {
@@ -315,8 +315,8 @@ bool Judge_factorial(string &theStr) {
   int len = theStr.length();
   for (int i = 0; i < len; i++)
     if (theStr[i] == '!')
-      return true;
-  return false;
+      return 1;
+  return 0;
 }
 int cal_factorial_number(string &theStr) {
   int number = 0;
