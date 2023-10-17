@@ -31,8 +31,8 @@ int cal_factorial(int theInt);
 int cal_factorial_number(string &theStr);
 
 int main() {
-  cout << "Welcome to the calculator\n";
-  cout << "You can use this calculator to do some simple calculations\n";
+  cout << "Welcome to the calculator.\n";
+  cout << "You can use this calculator to do some simple calculations.\n";
   cout << "If you want to exit, type :exit...\n";
   while (1) {
     string init_exp;
