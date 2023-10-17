@@ -9,14 +9,13 @@
 
 using namespace std;
 
+const int kIn = 0;
+const int kOut = 1;
+const int kMaxLength = 1e7 + 10;
+
 stack<char> opt;
 stack<double> val;
-
-int LargeNumberFactorial[1000] = {0};
-
-const int IN = 0;
-const int OUT = 1;
-
+int LargeNumberFactorial[kMaxLength];
 char opt_set[10] = "+-*/()=.";
 
 int level(char theOpt);
@@ -133,7 +132,7 @@ string to_string(int theInt) {
 
 bool change(string &from, string &to) {
   int theInt = 0;
-  int state = OUT;
+  int state = kOut;
   char c;
 
   for (int i = 0; i < from.length(); i++) {
@@ -142,14 +141,14 @@ bool change(string &from, string &to) {
       to = to + c;
       theInt *= 10;
       theInt += c - '0';
-      state = IN;
+      state = kIn;
     } else {
-      if (state == IN && c == '.') {
+      if (state == kIn && c == '.') {
         to = to + '.';
         theInt = 0;
         continue;
       }
-      if (state == IN && c != '.') {
+      if (state == kIn && c != '.') {
         to += ' ';
         theInt = 0;
       }
@@ -179,7 +178,7 @@ bool change(string &from, string &to) {
           break;
         }
       }
-      state = OUT;
+      state = kOut;
     }
   }
   while (!opt.empty()) {
@@ -192,7 +191,7 @@ bool change(string &from, string &to) {
 
 bool compute(string &theExp) {
   int theInt = 0;
-  int state = OUT;
+  int state = kOut;
   char c;
   bool dot = 0;
   double count = 1.0;
@@ -202,7 +201,7 @@ bool compute(string &theExp) {
       if (isdigit(c)) {
         theInt *= 10;
         theInt += c - '0';
-        state = IN;
+        state = kIn;
         if (dot == 1)
           count *= 10.0;
       }
@@ -214,7 +213,7 @@ bool compute(string &theExp) {
       dot = 0;
       double ans = theInt / count;
       count = 1.0;
-      if (state == IN) {
+      if (state == kIn) {
         val.push(ans);
         theInt = 0;
       }
@@ -242,7 +241,7 @@ bool compute(string &theExp) {
           cout << "Unknown Error!" << '\n';
         }
       }
-      state = OUT;
+      state = kOut;
     }
   }
   return 1;
