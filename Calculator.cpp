@@ -1,10 +1,10 @@
-#include <cmath>
 #include <complex.h>
+#include <iostream>
 #include <complex>
 #include <cstdlib>
 #include <cstring>
 #include <iomanip>
-#include <iostream>
+#include <cmath>
 #include <stack>
 
 using namespace std;
@@ -44,13 +44,15 @@ int main() {
     } else if (Judge_rectangle(init_exp) != 0) {
       double res = 0;
       res = cal_rect_number(init_exp, Judge_rectangle(init_exp));
-      if (res)
+      if (res) {
         cout << "The result is:" << fixed << setprecision(9) << res << '\n';
+      }
     } else if (Judge_factorial(init_exp)) {
       int n = cal_factorial_number(init_exp);
       cout << "The result is:";
-      for (int i = cal_factorial(n); i > 0; i--)
+      for (int i = cal_factorial(n); i > 0; i--) {
         cout << LargeNumberFactorial[i];
+      }
       cout << '\n';
     } else {
       cin.clear();
@@ -90,8 +92,9 @@ int level(char theOpt) {
 
 bool in_set(char theChar) {
   for (int i = 0; i < 8; i++) {
-    if (theChar == opt_set[i])
+    if (theChar == opt_set[i]) {
       return 1;
+    }
   }
   return 0;
 }
@@ -99,9 +102,9 @@ bool in_set(char theChar) {
 bool del_space(string &theString) {
   string res;
   for (int i = 0; i < theString.length(); i++) {
-    if (in_set(theString[i]) || isdigit(theString[i]))
+    if (in_set(theString[i]) || isdigit(theString[i])) {
       res += theString[i];
-    else if (theString[i] == ' ') {
+    } else if (theString[i] == ' ') {
     } else {
       cout << "The enter is Wrong" << '\n';
       return 0;
@@ -112,8 +115,9 @@ bool del_space(string &theString) {
 }
 
 string to_string(int theInt) {
-  if (theInt == 0)
+  if (theInt == 0) {
     return string("0");
+  }
   bool neg = 0;
   if (theInt < 0) {
     neg = 1;
@@ -125,8 +129,9 @@ string to_string(int theInt) {
     res = c + res;
     theInt /= 10;
   }
-  if (neg)
+  if (neg) {
     res = '-' + res;
+  }
   return res;
 }
 
@@ -152,11 +157,11 @@ bool change(string &from, string &to) {
         to += ' ';
         theInt = 0;
       }
-      if (c == '=')
+      if (c == '=') {
         break;
-      else if (c == '(')
+      } else if (c == '(') {
         opt.push(c);
-      else if (c == ')') {
+      } else if (c == ')') {
         while (!opt.empty() && opt.top() != '(') {
           to += opt.top();
           to += ' ';
@@ -165,11 +170,11 @@ bool change(string &from, string &to) {
         opt.pop();
       } else {
         while (1) {
-          if (opt.empty() || opt.top() == '(')
+          if (opt.empty() || opt.top() == '(') {
             opt.push(c);
-          else if (level(c) > level(opt.top()))
+          } else if (level(c) > level(opt.top())) {
             opt.push(c);
-          else {
+          } else {
             to += opt.top();
             to += ' ';
             opt.pop();
@@ -202,8 +207,9 @@ bool compute(string &theExp) {
         theInt *= 10;
         theInt += c - '0';
         state = kIn;
-        if (dot == 1)
+        if (dot == 1) {
           count *= 10.0;
+        }
       }
       if (c == '.') {
         dot = 1;
@@ -256,23 +262,29 @@ int Judge_rectangle(string &theStr) {
   string str6 = "arctan";
   const char *show1, *show2, *show3, *show4, *show5, *show6;
   show4 = strstr(theStr.c_str(), str4.c_str());
-  if (show4 != NULL)
+  if (show4 != NULL) {
     return 4;
+  }
   show5 = strstr(theStr.c_str(), str5.c_str());
-  if (show5 != NULL)
+  if (show5 != NULL) {
     return 5;
+  }
   show6 = strstr(theStr.c_str(), str6.c_str());
-  if (show6 != NULL)
+  if (show6 != NULL) {
     return 6;
+  }
   show1 = strstr(theStr.c_str(), str1.c_str());
-  if (show1 != NULL)
+  if (show1 != NULL) {
     return 1;
+  }
   show2 = strstr(theStr.c_str(), str2.c_str());
-  if (show2 != NULL)
+  if (show2 != NULL) {
     return 2;
+  }
   show3 = strstr(theStr.c_str(), str3.c_str());
-  if (show3 != NULL)
+  if (show3 != NULL) {
     return 3;
+  }
   return 0;
 }
 
@@ -312,9 +324,11 @@ double cal_rect_number(string &theStr, int theInt) {
 }
 bool Judge_factorial(string &theStr) {
   int len = theStr.length();
-  for (int i = 0; i < len; i++)
-    if (theStr[i] == '!')
+  for (int i = 0; i < len; i++) {
+    if (theStr[i] == '!') {
       return 1;
+    }
+  }
   return 0;
 }
 int cal_factorial_number(string &theStr) {
@@ -339,8 +353,9 @@ int cal_factorial(int theInt) {
     for (int j = 1; j <= digit; j++) {
       if (LargeNumberFactorial[j] > 10) {
         for (int k = 1; k <= digit; k++) {
-          if (LargeNumberFactorial[digit] > 9)
+          if (LargeNumberFactorial[digit] > 9) {
             digit++;
+          }
           LargeNumberFactorial[k + 1] += LargeNumberFactorial[k] / 10;
           LargeNumberFactorial[k] %= 10;
         }
