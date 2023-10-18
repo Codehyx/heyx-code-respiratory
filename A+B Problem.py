@@ -3,7 +3,8 @@ s = str(input())
 cnt = 0
 a = [0, 0]
 op = ''
-for i in range(0, len(s)) :
+lens = len(s);
+for i in range(0, lens) :
     if s[i].isdigit() :
         a[cnt] = a[cnt] * 10 + int(s[i])
     else :
