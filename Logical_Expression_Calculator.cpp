@@ -8,7 +8,8 @@ int status;
 
 int main() {
   cin >> s;
-  for (int i = 0; i < s.size(); i++) {
+  int l = s.size();
+  for (int i = 0; i < l; i++) {
     if (status) {
       if (s[i] == '(') {
         int x = 1;
