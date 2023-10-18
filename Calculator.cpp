@@ -16,6 +16,7 @@ const int kMaxLength = 1e7 + 10;
 stack<char> opt;
 stack<double> val;
 int LargeNumberFactorial[kMaxLength];
+string init_exp;
 char opt_set[10] = "+-*/()=.";
 
 int level(char theOpt);
@@ -35,7 +36,6 @@ int main() {
   cout << "You can use this calculator to do some simple calculations.\n";
   cout << "If you want to exit, type :exit...\n";
   while (1) {
-    string init_exp;
     cout << "-- Please enter the expression:";
     cin >> init_exp;
     if (init_exp == string("exit")) {
@@ -55,13 +55,10 @@ int main() {
       }
       cout << '\n';
     } else {
-      cin.clear();
-      cin.sync();
-      while (!opt.empty()) {
-        opt.pop();
+      cin.clear(), cin.sync();
+      for (; !opt.empty(); opt.pop()){
       }
-      while (!val.empty()) {
-        val.pop();
+      for (; !val.empty(); val.pop()) {
       }
       del_space(init_exp);
       string cng_exp;
