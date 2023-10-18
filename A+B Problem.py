@@ -1,4 +1,4 @@
-print("输入一个形如 a+b 的算式:")
+print("Enter a formula of the form a+b:")
 s = str(input())
 cnt = 0
 a = [0, 0]
@@ -27,4 +27,4 @@ elif op == '|' :
 elif op == '^' :
     print(a[0] ^ a[1])
 else :
-    print("计算失败！！")
+    print("Calculation failed!!")
