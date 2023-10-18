@@ -1,5 +1,6 @@
 import tkinter
 
+# * Window
 root  = tkinter.Tk()
 root.minsize(280,500)
 root.title('Calculator')
@@ -9,6 +10,7 @@ result.set(0)
 result2 = tkinter.StringVar()
 result2.set('')
 
+# * Buttons
 label = tkinter.Label(root,font = ('Consolas',20),bg = '#EEE9E9',bd ='9',fg = '#828282',anchor = 'se',textvariable = result2)
 label.place(width = 280,height = 170)
 label2 = tkinter.Label(root,font = ('Consolas',30),bg = '#EEE9E9',bd ='9',fg = 'black',anchor = 'se',textvariable = result)
@@ -59,6 +61,8 @@ btnpoint.place(x = 140,y = 450,width = 70,height = 55)
 lists = []
 isPressSign = False
 isPressNum = False
+
+# * Solve
 
 def pressNum(num):
     global lists
