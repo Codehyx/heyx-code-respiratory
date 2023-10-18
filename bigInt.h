@@ -180,6 +180,6 @@ template <size_t len> void Output(BigInt<len> &a) {
     cout << binary_symbol[a[i]];
   }
 }
-}; // namespace Int
+};
 
 using namespace Int;
