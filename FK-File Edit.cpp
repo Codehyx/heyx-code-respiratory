@@ -1,4 +1,4 @@
-// ? By Luogu __YLX
+// ? Powered by __YLX
 #include <bits/stdc++.h>
 #include <conio.h>
 #include <direct.h>
