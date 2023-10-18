@@ -63,7 +63,6 @@ isPressSign = False
 isPressNum = False
 
 # * Solve
-
 def pressNum(num):
     global lists
     global isPressSign
