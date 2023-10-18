@@ -35,7 +35,7 @@ int cal_factorial_number(string &theStr);
 void introduce_the_calculator();
 void solve();
 
-// * Main
+// * Main Function
 int main() {
   introduce_the_calculator();
   while (1) {
