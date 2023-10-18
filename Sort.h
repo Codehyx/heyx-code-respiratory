@@ -1,3 +1,4 @@
+namespace Sort_Algo {
 template <typename T> void upBubbleSort(T arr[], int l, int r) {
   for (int i = l; i <= r; i++) {
     for (int j = l; j <= r; j++) {
@@ -193,3 +194,4 @@ template <typename T> void downQuickSort(T arr[], int l, int r) {
     downQuickSort(arr, i, r);
   }
 }
+};
