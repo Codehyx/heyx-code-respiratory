@@ -13,12 +13,14 @@ const int kIn = 0;
 const int kOut = 1;
 const int kMaxLength = 1e7 + 10;
 
+// * Variables
 stack<char> opt;
 stack<double> val;
 int LargeNumberFactorial[kMaxLength];
 string init_exp;
 char opt_set[10] = "+-*/()=.";
 
+// * Functions
 int level(char theOpt);
 bool in_set(char theChar);
 bool del_space(string &theString);
@@ -30,48 +32,19 @@ double cal_rect_number(string &theStr, int theInt);
 bool Judge_factorial(string &theStr);
 int cal_factorial(int theInt);
 int cal_factorial_number(string &theStr);
+void introduce_the_calculator();
+void solve();
 
+// * Main
 int main() {
-  cout << "Welcome to the calculator.\n";
-  cout << "You can use this calculator to do some simple calculations.\n";
-  cout << "If you want to exit, type :exit...\n";
+  introduce_the_calculator();
   while (1) {
-    cout << "-- Please enter the expression:";
-    cin >> init_exp;
-    if (init_exp == string("exit")) {
-      cout << "Thank you for your use...\n";
-      break;
-    } else if (Judge_rectangle(init_exp) != 0) {
-      double res = 0;
-      res = cal_rect_number(init_exp, Judge_rectangle(init_exp));
-      if (res) {
-        cout << "The result is:" << fixed << setprecision(9) << res << '\n';
-      }
-    } else if (Judge_factorial(init_exp)) {
-      int n = cal_factorial_number(init_exp);
-      cout << "The result is:";
-      for (int i = cal_factorial(n); i > 0; i--) {
-        cout << LargeNumberFactorial[i];
-      }
-      cout << '\n';
-    } else {
-      cin.clear(), cin.sync();
-      for (; !opt.empty(); opt.pop()){
-      }
-      for (; !val.empty(); val.pop()) {
-      }
-      del_space(init_exp);
-      string cng_exp;
-      cng_exp.clear();
-      change(init_exp, cng_exp);
-      compute(cng_exp);
-      double stdans = val.top();
-      cout << "The result is:" << (double)stdans << '\n';
-    }
+    solve();
   }
   return 0;
 }
 
+// * Functions definition
 int level(char theOpt) {
   switch (theOpt) {
   case '(':
@@ -359,4 +332,45 @@ int cal_factorial(int theInt) {
     }
   }
   return digit;
+}
+
+void solve() {
+  cout << "-- Please enter the expression:";
+  cin >> init_exp;
+  if (init_exp == string("exit")) {
+    cout << "Thank you for your use...\n";
+    return;
+  } else if (Judge_rectangle(init_exp) != 0) {
+    double res = 0;
+    res = cal_rect_number(init_exp, Judge_rectangle(init_exp));
+    if (res) {
+      cout << "The result is:" << fixed << setprecision(9) << res << '\n';
+    }
+  } else if (Judge_factorial(init_exp)) {
+    int n = cal_factorial_number(init_exp);
+    cout << "The result is:";
+    for (int i = cal_factorial(n); i > 0; i--) {
+      cout << LargeNumberFactorial[i];
+    }
+    cout << '\n';
+  } else {
+    cin.clear(), cin.sync();
+    for (; !opt.empty(); opt.pop()){
+    }
+    for (; !val.empty(); val.pop()) {
+    }
+    del_space(init_exp);
+    string cng_exp;
+    cng_exp.clear();
+    change(init_exp, cng_exp);
+    compute(cng_exp);
+    double stdans = val.top();
+    cout << "The result is:" << (double)stdans << '\n';
+  }
+}
+
+void introduce_the_calculator() {
+  cout << "Welcome to the calculator.\n";
+  cout << "You can use this calculator to do some simple calculations.\n";
+  cout << "If you want to exit, type :exit...\n";
 }
