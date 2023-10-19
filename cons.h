@@ -6,7 +6,8 @@
 
 using namespace std;
 
-const int N = 1e5 + 5;
+const int kMaxN = 1e5 + 5;
+const int kMaxLength = 2048;
 
 struct User {
   string name;
@@ -32,7 +33,7 @@ struct User {
 } Now;
 
 int lc = 1;
-int line[N];
+int line[kMaxN];
 string file;
 bool CtrlA = 0;
 bool tmp = 0;
@@ -83,8 +84,8 @@ string GetCB() {
 }
 
 string Path() {
-  char res[2048];
-  _getcwd(res, 2048);
+  char res[kMaxLength];
+  _getcwd(res, kMaxLength);
   string p = res;
   return p;
 }
@@ -152,7 +153,7 @@ void cl(string &i, char c) {
     i += '\n';
     cout << '\n';
     lc++;
-    if (lc == N) {
+    if (lc == kMaxN) {
       exit(0);
     }
   } else if (c == 9) { // Tab
