@@ -12,7 +12,7 @@ int main() {
 	string i;
 	while(1) {
 		if(CtrlA) {
-			system("title [文件全选中]");
+			system("title [鏂囦欢鍏ㄩ�変腑]");
 		} else {
 			string cmd = "title " + file + "   lines:" + to_string(lc) + "    " + to_string(line[lc]);
 			system(cmd.c_str());
