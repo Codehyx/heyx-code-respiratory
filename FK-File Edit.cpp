@@ -1,7 +1,7 @@
 // Powered by __YLX
 #include <bits/stdc++.h>
 #include <conio.h>
-#include "cons.h"
+#include "cons.hpp"
 
 using namespace std;
 
