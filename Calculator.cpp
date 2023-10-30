@@ -13,14 +13,14 @@ const int kIn = 0;
 const int kOut = 1;
 const int kMaxLength = 1e7 + 10;
 
-// * Variables
+/* Variables */
 stack<char> opt;
 stack<double> val;
 int LargeNumberFactorial[kMaxLength];
 string init_exp;
 char opt_set[10] = "+-*/()=.";
 
-// * Functions
+/* Functions */
 int level(char theOpt);
 bool in_set(char theChar);
 bool del_space(string &theString);
@@ -35,7 +35,7 @@ int cal_factorial_number(string &theStr);
 void introduce_the_calculator();
 void solve();
 
-// * Main Function
+/* Main Function */
 int main() {
   introduce_the_calculator();
   while (1) {
@@ -44,7 +44,7 @@ int main() {
   return 0;
 }
 
-// * Functions definition
+/* Functions definition */
 int level(char theOpt) {
   switch (theOpt) {
   case '(':
