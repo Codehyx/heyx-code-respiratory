@@ -1,10 +1,10 @@
+#include <cmath>
 #include <complex.h>
-#include <iostream>
 #include <complex>
 #include <cstdlib>
 #include <cstring>
 #include <iomanip>
-#include <cmath>
+#include <iostream>
 #include <stack>
 
 using namespace std;
@@ -109,7 +109,6 @@ bool change(string &from, string &to) {
   int theInt = 0;
   int state = kOut;
   char c;
-
   for (int i = 0; i < from.length(); i++) {
     c = from[i];
     if (isdigit(c)) {
@@ -339,12 +338,12 @@ void solve() {
   cin >> init_exp;
   if (init_exp == string("exit")) {
     cout << "Thank you for your use...\n";
-    return;
+    exit(0);
   } else if (Judge_rectangle(init_exp) != 0) {
     double res = 0;
     res = cal_rect_number(init_exp, Judge_rectangle(init_exp));
     if (res) {
-      cout << "The result is:" << fixed << setprecision(9) << res << '\n';
+      cout << "The result is:" << fixed << setprecision(10) << res << '\n';
     }
   } else if (Judge_factorial(init_exp)) {
     int n = cal_factorial_number(init_exp);
@@ -355,7 +354,7 @@ void solve() {
     cout << '\n';
   } else {
     cin.clear(), cin.sync();
-    for (; !opt.empty(); opt.pop()){
+    for (; !opt.empty(); opt.pop()) {
     }
     for (; !val.empty(); val.pop()) {
     }
@@ -365,7 +364,12 @@ void solve() {
     change(init_exp, cng_exp);
     compute(cng_exp);
     double stdans = val.top();
-    cout << "The result is:" << (double)stdans << '\n';
+    cout << "The result is:";
+    if (fmod(stdans, 1.0) == 0.0 || fmod(stdans, 1.0) == -0.0) {
+    } else {
+      cout << fixed << setprecision(10);
+    }
+    cout << stdans << '\n';
   }
 }
 
