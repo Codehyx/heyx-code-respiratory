@@ -1,20 +1,26 @@
-#include <bits/stdc++.h>
-
-using namespace std;
+/*
+* bigInt
+?  让大整数类型能像整型一样轻松使用
+?    by heyx
+*/
+#include <iostream>
 
 namespace Integer {
-const string symbol = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-template <size_t kMaxLength, int binary, typename T> struct BigInt {
+const std::string symbol = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+template <size_t kMaxLength, int binary, typename T> class BigInt {
+private:
   T n, a[kMaxLength];
   bool f;
+
+public:
   BigInt() { Init(); }
   T &operator[](int i) { return a[i]; }
   void Init() {
     n = f = 1;
     fill(a, a + kMaxLength, 0);
   }
-  friend istream &operator>>(istream &tempStream, BigInt &a) {
-    string s;
+  friend std::istream &operator>>(std::istream &tempStream, BigInt &a) {
+    std::string s;
     tempStream >> s;
     a.n = s.size();
     if (s[0] == '-') {
@@ -28,11 +34,11 @@ template <size_t kMaxLength, int binary, typename T> struct BigInt {
     }
     return tempStream;
   }
-  friend ostream &operator<<(ostream &tempStream, BigInt a) {
+  friend std::ostream &operator<<(std::ostream &tempStream, BigInt a) {
     for (; a.n > 1 && !a[a.n - 1]; a.n--) {
     }
     if (!a.f) {
-      cout << '-';
+      tempStream << '-';
     }
     for (int i = a.n - 1; i >= 0; i--) {
       tempStream << symbol[a[i]];
@@ -53,7 +59,7 @@ template <size_t kMaxLength, int binary, typename T> struct BigInt {
       x /= binary;
     }
   }
-  void operator=(string x) {
+  void operator=(std::string x) {
     Init();
     int st = 0;
     if (x[0] == '-') {
@@ -304,4 +310,4 @@ template <size_t kMaxLength, int binary, typename T> struct BigInt {
     return x;
   }
 };
-}; // namespace Integer
+};
