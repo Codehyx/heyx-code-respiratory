@@ -11,8 +11,8 @@ const std::string symbol = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 template <class T, int binary = 10> class BigInt {
 private:
   T n;
-  std::vector<T> a;
   bool f;
+  std::vector<T> a;
 
 public:
   BigInt() { Init(); }
