@@ -1,7 +1,7 @@
 /*
-* bigInt
-?  让大整数类型能像整型一样轻松使用
-?    by heyx
+bigInt
+ 让大整数类型能像整型一样轻松使用
+   by heyx
 */
 #include <iostream>
 #include <vector>
@@ -11,8 +11,8 @@ const std::string symbol = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 template <class T, int binary = 10> class BigInt {
 private:
   T n;
-  bool f;
   std::vector<T> a;
+  bool f;
 
 public:
   BigInt() { Init(); }
@@ -71,7 +71,7 @@ public:
     n = 0;
     int len = x.size();
     for (int i = st; i < len; i++) {
-      a.push_back(x[len - i - 1] - '0');
+      a.push_back((x[len - i - 1] >= '0' && x[len - i - 1] <= '9' ? x[len - i - 1] - '0' : x[len - i - 1] - 'A' + 10));
       n++;
     }
   }
