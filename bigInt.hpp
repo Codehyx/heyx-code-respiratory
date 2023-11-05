@@ -4,44 +4,46 @@
 ?    by heyx
 */
 #include <iostream>
+#include <vector>
 
 namespace Integer {
 const std::string symbol = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-template <size_t kMaxLength, int binary, typename T> class BigInt {
+template <class T, int binary = 10> class BigInt {
 private:
-  T n, num[kMaxLength];
+  T n;
+  std::vector<T> a;
   bool f;
 
 public:
   BigInt() { Init(); }
-  T &operator[](int i) { return num[i]; }
+  T &operator[](int i) { return a[i]; }
   void Init() {
     n = f = 1;
-    fill(num, num + kMaxLength, 0);
+    a.clear();
   }
-  friend std::istream &operator>>(std::istream &tempStream, BigInt &num) {
+  friend std::istream &operator>>(std::istream &tempStream, BigInt &a) {
     std::string s;
     tempStream >> s;
-    num.n = s.size();
+    a.n = s.size();
     if (s[0] == '-') {
-      num.f = 0;
-      num.n--, s.erase(0, 1);
+      a.f = 0;
+      a.n--, s.erase(0, 1);
     }
-    for (int i = 0; i < num.n; i++) {
-      num[i] = (s[num.n - i - 1] >= 'A' && s[num.n - i - 1] <= 'Z'
-                  ? s[num.n - i - 1] - 'A' + 10
-                  : s[num.n - i - 1] - '0');
+    for (int i = 0; i < a.n; i++) {
+      a.push_back((s[a.n - i - 1] >= 'A' && s[a.n - i - 1] <= 'Z'
+                  ? s[a.n - i - 1] - 'A' + 10
+                  : s[a.n - i - 1] - '0'));
     }
     return tempStream;
   }
-  friend std::ostream &operator<<(std::ostream &tempStream, BigInt num) {
-    for (; num.n > 1 && !num[num.n - 1]; num.n--) {
+  friend std::ostream &operator<<(std::ostream &tempStream, BigInt a) {
+    for (; a.n > 1 && !a[a.n - 1]; a.n--) {
     }
-    if (!num.f) {
+    if (!a.f) {
       tempStream << '-';
     }
-    for (int i = num.n - 1; i >= 0; i--) {
-      tempStream << symbol[num[i]];
+    for (int i = a.n - 1; i >= 0; i--) {
+      tempStream << symbol[a[i]];
     }
     return tempStream;
   }
@@ -55,7 +57,8 @@ public:
     }
     n = 0;
     while (x) {
-      num[n++] = x % binary;
+      a.push_back(x % binary);
+      n++;
       x /= binary;
     }
   }
@@ -68,7 +71,8 @@ public:
     n = 0;
     int len = x.size();
     for (int i = st; i < len; i++) {
-      num[n++] = x[len - i - 1] - '0';
+      a.push_back(x[len - i - 1] - '0');
+      n++;
     }
   }
   void operator=(BigInt x) {
@@ -76,7 +80,7 @@ public:
     n = x.n;
     f = x.f;
     for (int i = 0; i < n; i++) {
-      num[i] = x[i];
+      a[i] = x[i];
     }
   }
   bool operator==(BigInt x) {
@@ -84,7 +88,7 @@ public:
       return 0;
     }
     for (int i = n - 1; i >= 0; i++) {
-      if (num[i] != x[i]) {
+      if (a[i] != x[i]) {
         return 0;
       }
     }
@@ -94,8 +98,8 @@ public:
   bool operator<(BigInt x) {
     if (n == x.n) {
       for (int i = n - 1; i >= 0; i--) {
-        if (num[i] != x[i]) {
-          return num[i] < x[i];
+        if (a[i] != x[i]) {
+          return a[i] < x[i];
         }
       }
     }
@@ -104,8 +108,8 @@ public:
   bool operator>(BigInt x) {
     if (n == x.n) {
       for (int i = n - 1; i >= 0; i--) {
-        if (num[i] != x[i]) {
-          return num[i] > x[i];
+        if (a[i] != x[i]) {
+          return a[i] > x[i];
         }
       }
     }
@@ -117,7 +121,7 @@ public:
     if (n != 1) {
       return 0;
     }
-    return !num[0];
+    return !a[0];
   }
   bool operator==(int x) {
     BigInt y;
@@ -164,12 +168,12 @@ public:
     y.n = max(n, x.n);
     int s = 0;
     for (int i = 0; i < y.n; i++) {
-      s += num[i] + x.num[i];
-      y.num[i] = s % binary;
+      s += a[i] + x.a[i];
+      y.a[i] = s % binary;
       s /= binary;
     }
     for (; s; s /= binary) {
-      y.num[y.n++] += s % binary;
+      y.a[y.n++] += s % binary;
     }
     return y;
   }
@@ -193,7 +197,7 @@ public:
     }
     y.n = z.n;
     for (int i = 0; i < y.n; i++) {
-      if (z.num[i] < x[i]) {
+      if (z.a[i] < x[i]) {
         z[i + 1]--;
         z[i] += binary;
       }
@@ -220,14 +224,14 @@ public:
     BigInt y;
     for (int i = 0; i < n; i++) {
       for (int j = 0; j < x.n; j++) {
-        y[i + j] += num[i] * x[j];
+        y[i + j] += a[i] * x[j];
       }
     }
     y.n = n + x.n;
     for (int i = 0; i < y.n - 1; i++) {
       y[i + 1] += y[i] / binary, y[i] %= binary;
     }
-    for (; !y.num[y.n - 1] && y.n > 1; y.n--) {
+    for (; !y.a[y.n - 1] && y.n > 1; y.n--) {
     }
     return y;
   }
@@ -256,10 +260,10 @@ public:
     for (int i = y.n - 1; i >= 0; i--) {
       BigInt t = x << i;
       for (; z >= t; z -= t) {
-        y.num[i]++;
+        y.a[i]++;
       }
     }
-    for (; !y.num[y.n - 1] && y.n > 1; y.n--) {
+    for (; !y.a[y.n - 1] && y.n > 1; y.n--) {
     }
     return y;
   }
@@ -296,7 +300,7 @@ public:
   BigInt operator<<(int l) {
     BigInt x;
     for (int i = 0; i < n; i++) {
-      x[i + l] = num[i];
+      x[i + l] = a[i];
     }
     x.n = n + l;
     return x;
@@ -305,7 +309,7 @@ public:
     BigInt x;
     x.n = n - l;
     for (int i = 0; i < x.n; i++) {
-      x[i] = num[i + l];
+      x[i] = a[i + l];
     }
     return x;
   }
